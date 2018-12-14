@@ -368,7 +368,11 @@ module StripeMock
         next_payment_attempt: 1349825350,
         charge: nil,
         discount: nil,
-        subscription: nil
+        subscription: nil,
+        hosted_invoice_url: "https://dashboard.stripe.com/emails/invoices/#{in_id}/pdf",
+        status: 'draft',
+        billing: 'charge_automatically',
+        due_date: nil
       }.merge(params)
       if invoice[:discount]
         invoice[:total] = [0, invoice[:subtotal] - invoice[:discount][:coupon][:amount_off]].max if invoice[:discount][:coupon][:amount_off]
@@ -418,7 +422,8 @@ module StripeMock
         description: "invoice item desc",
         metadata: {},
         invoice: nil,
-        subscription: nil
+        subscription: nil,
+        type: nil
       }.merge(params)
     end
 

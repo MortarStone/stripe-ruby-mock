@@ -14,6 +14,18 @@ shared_examples 'Invoice API' do
       expect(data[invoice.id]).to_not be_nil
       expect(data[invoice.id][:id]).to eq(invoice.id)
     end
+
+    it "provides a hosted_invoice_url method" do
+      invoice = Stripe::Invoice.create
+      expect {invoice.hosted_invoice_url}.not_to raise_error
+      expect(invoice.hosted_invoice_url).to be_a_kind_of String
+    end
+
+    it "provides a status method" do
+      invoice = Stripe::Invoice.create
+      expect {invoice.status}.not_to raise_error
+      expect(invoice.status).to eq 'draft'
+    end
   end
 
   context "retrieving an invoice" do
